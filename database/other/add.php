@@ -43,7 +43,7 @@ input[type="text"] {
 #inputContainer label {
     text-align: left;
     display: inline-block; /* 让文本和单选按钮都在一行上 */
-    width: 35%; /* 调整文本宽度，根据您的需要进行调整 */
+    width: 40%; /* 调整文本宽度，根据您的需要进行调整 */
 }
 
 /* 设置单选按钮的样式，使其向右对齐 */
@@ -83,7 +83,9 @@ input[type="text"] {
             時數 <input type="text" autocomplete="off" name="hour" required><br><br> -->
             <h3>輔導服務項目次數</h3>
             姓名 <input type="text" name="name" required><br>
-            學期 <input type="text" name="year" placeholder="格式為 xxx-x 例如111-2" required><br><br>
+            學期 <input type="text" name="year" placeholder="格式為 xxx-x 例如111-2" required><br>
+            日期 <input type="text" name="time" placeholder="年/月/日" required><br>
+            備註 <input type="text" name="info" placeholder="50字內為限" required><br><br>
             <select id="objectSelect" onchange="real_helps()" onload="real_helps()">
                 <option value="object1">01. ISP訂定與檢核</option>
                 <option value="object2">02. 學習協助輔導</option>
@@ -100,6 +102,7 @@ input[type="text"] {
                 <option value="object13">13. 支持與諮詢服務</option>
                 <option value="object14">14. 其他協助</option>
             </select><br><br>
+            <h3>本次執行時數：</h3>
             <div id="inputContainer">
             <!-- 在選擇物件後，這裡會動態生成相應的輸入框 -->
             </div>
@@ -108,12 +111,14 @@ input[type="text"] {
             </form>
         </div>
         <div class="form">
-            <form method="POST" action="write_info_helps.php" enctype="multipart/form-data">
+            <form method="POST" action="write_info_helps.php" enctype="multipart/form-data" id="info_helps">
             <!-- 月份 <input type="text" id= "month" name="month" pattern="\d{1,2}" maxlength="2" required><br>
             時數 <input type="text" autocomplete="off" name="hour" required><br><br> -->
             <h3>行政服務項目次數</h3>
             姓名 <input type="text" name="name" required><br>
-            學期 <input type="text" name="year" placeholder="格式為 xxx-x 例如111-2" required><br><br>
+            學期 <input type="text" name="year" placeholder="格式為 xxx-x 例如111-2" required><br>
+            日期 <input type="text" name="time" placeholder="年/月/日" required><br>
+            備註 <input type="text" name="info" placeholder="50字內為限" required><br><br>
             <select id="objectSelect2" onchange="info_helps()" onload="info_helps()">
                 <option value="object1">01. 課業輔導</option>
                 <option value="object2">02. 協助同學</option>
@@ -121,6 +126,7 @@ input[type="text"] {
                 <option value="object4">04. 活動邀請/通知</option>
                 <option value="object5">05. 公務通知</option>
             </select><br><br>
+            <h3>本次執行時數：</h3>
             <div id="inputContainer2">
             <!-- 在選擇物件後，這裡會動態生成相應的輸入框 -->
             </div>
@@ -141,6 +147,7 @@ input[type="text"] {
                 this.setCustomValidity("");
             }
         });*/
+
         function real_helps() {
 
             var selectedObject = document.getElementById("objectSelect").value;
@@ -263,7 +270,7 @@ input[type="text"] {
             }    
 
             // 動態生成輸入框
-            /*
+            
             for (var i = 0; i < inputFields.length; i++) {
                 var label = document.createElement("label");
                 label.textContent = inputFields[i].label;
@@ -278,11 +285,11 @@ input[type="text"] {
                 inputContainer.appendChild(input);
                 inputContainer.appendChild(document.createElement("br"));
             }
-            */
-        
+            
+            /*
             // 動態生成複選框
 
-            /*
+            
             for (var i = 0; i < inputFields.length; i++) {
                 var label = document.createElement("label");
                 label.textContent = inputFields[i].label;
@@ -298,11 +305,11 @@ input[type="text"] {
             var selectedObject = document.getElementById("objectSelect").value;
             document.getElementById("selectedObject").value = selectedObject;
             */
-            
+            /*
             var fieldset = document.createElement("fieldset");
-            /*var legend = document.createElement("legend");
+            var legend = document.createElement("legend");
             legend.textContent = "選擇一個：";
-            fieldset.appendChild(legend);*/
+            fieldset.appendChild(legend);
 
             for (var i = 0; i < inputFields.length; i++) {
                 var label = document.createElement("label");
@@ -322,7 +329,7 @@ input[type="text"] {
             inputContainer.appendChild(fieldset);
         
             var selectedObject = document.getElementById("objectSelect").value;
-            document.getElementById("selectedObject").value = selectedObject;
+            document.getElementById("selectedObject").value = selectedObject;*/
         }
         function info_helps() {
 
@@ -388,7 +395,8 @@ input[type="text"] {
                 var checkbox = document.createElement("input");
                 checkbox.type = "checkbox";
                 checkbox.name = inputFields[i].name;
-                checkbox.value = inputFields[i].name;
+                //checkbox.value = inputFields[i].name;
+                checkbox.value = 1
 
                 inputContainer.appendChild(checkbox);
                 inputContainer.appendChild(label);
@@ -396,11 +404,11 @@ input[type="text"] {
             }
             var selectedObject = document.getElementById("objectSelect2").value;
             document.getElementById("selectedObject").value = selectedObject;
-            */
+            */            
 
             // 動態生成輸入框
 
-            /*
+            
             for (var i = 0; i < inputFields.length; i++) {
                 var label = document.createElement("label");
                 label.textContent = inputFields[i].label;
@@ -417,12 +425,13 @@ input[type="text"] {
             }
             var selectedObject = document.getElementById("objectSelect2").value;
             document.getElementById("selectedObject2").value = selectedObject;
-            */
             
+            
+            /*
             var fieldset = document.createElement("fieldset");
-            /*var legend = document.createElement("legend");
+            var legend = document.createElement("legend");
             legend.textContent = "選擇一個：";
-            fieldset.appendChild(legend);*/
+            fieldset.appendChild(legend);
 
             for (var i = 0; i < inputFields.length; i++) {
                 var label = document.createElement("label");
@@ -444,11 +453,14 @@ input[type="text"] {
         
             var selectedObject = document.getElementById("objectSelect2").value;
             document.getElementById("selectedObject").value = selectedObject;
+            */
         }
+
         window.onload = function() {
             clockTick();
         };
         real_helps();
         info_helps();
+
     </script>
 </body>

@@ -28,9 +28,13 @@
         if (isset($_POST['selectedObject2'])) {
             $selectedObject = $_POST['selectedObject2'];
         }
+        echo "<br>".$inputs[0]."<br>".$inputs[1]."<br>".$inputs[2]."<br>".$selectedObject;
         $selectedObjectNumber = str_replace("object", "", $selectedObject);
+        echo "<br>".$selectedObjectNumber;
         $query = "SELECT * FROM student_infohelp_$selectedObjectNumber WHERE year = '$year' AND name = '$name'";
+        echo "<br>".$query;
         $result = mysqli_query($link, $query);
+        echo "<br>".mysqli_num_rows($result);
         if (mysqli_num_rows($result) > 0) {
             if($selectedObjectNumber == 1 || $selectedObjectNumber == 2) {
                 $total = $inputs[0] + $inputs[1] + $inputs[2] + $inputs[3];
