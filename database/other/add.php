@@ -15,6 +15,10 @@ label {
 input[type="text"] {
   width: 200px; /* 調整輸入框的寬度，根據需要進行調整 */
 }
+input[type="date"] {
+  width: 200px; /* 調整輸入框的寬度，根據需要進行調整 */
+  text-align: center;
+}
 .form-container {
     display: flex;
     justify-content: space-between;
@@ -81,10 +85,10 @@ input[type="text"] {
             <form method="POST" action="write_real_helps.php" enctype="multipart/form-data">
             <!-- 月份 <input type="text" id= "month" name="month" pattern="\d{1,2}" maxlength="2" required><br>
             時數 <input type="text" autocomplete="off" name="hour" required><br><br> -->
-            <h3>輔導服務項目次數</h3>
+            <h3>輔導服務項目</h3>
             姓名 <input type="text" name="name" required><br>
             學期 <input type="text" name="year" placeholder="格式為 xxx-x 例如111-2" required><br>
-            日期 <input type="text" name="time" placeholder="年/月/日" required><br>
+            日期 <input type="date" name="time" required><br>
             備註 <input type="text" name="info" placeholder="50字內為限" required><br><br>
             <select id="objectSelect" onchange="real_helps()" onload="real_helps()">
                 <option value="object1">01. ISP訂定與檢核</option>
@@ -111,13 +115,13 @@ input[type="text"] {
             </form>
         </div>
         <div class="form">
-            <form method="POST" action="write_info_helps.php" enctype="multipart/form-data" id="info_helps">
+            <form method="POST" action="write_info_helps.php" enctype="multipart/form-data">
             <!-- 月份 <input type="text" id= "month" name="month" pattern="\d{1,2}" maxlength="2" required><br>
             時數 <input type="text" autocomplete="off" name="hour" required><br><br> -->
-            <h3>行政服務項目次數</h3>
+            <h3>行政服務項目</h3>
             姓名 <input type="text" name="name" required><br>
             學期 <input type="text" name="year" placeholder="格式為 xxx-x 例如111-2" required><br>
-            日期 <input type="text" name="time" placeholder="年/月/日" required><br>
+            日期 <input type="date" name="time" required><br>
             備註 <input type="text" name="info" placeholder="50字內為限" required><br><br>
             <select id="objectSelect2" onchange="info_helps()" onload="info_helps()">
                 <option value="object1">01. 課業輔導</option>
@@ -139,14 +143,6 @@ input[type="text"] {
     <?php include "../hbfd/footer.php"; ?>
     </div>
     <script>
-       /* document.getElementById("month").addEventListener("input", function() {
-            var input = this.value;
-            if (input < 1 || input > 12) {
-                this.setCustomValidity("請输入 1 到 12 之間的数字。");
-            } else {
-                this.setCustomValidity("");
-            }
-        });*/
 
         function real_helps() {
 
@@ -285,52 +281,10 @@ input[type="text"] {
                 inputContainer.appendChild(input);
                 inputContainer.appendChild(document.createElement("br"));
             }
-            
-            /*
-            // 動態生成複選框
-
-            
-            for (var i = 0; i < inputFields.length; i++) {
-                var label = document.createElement("label");
-                label.textContent = inputFields[i].label;
-                var checkbox = document.createElement("input");
-                checkbox.type = "checkbox";
-                checkbox.name = inputFields[i].name;
-                checkbox.value = inputFields[i].name;
-
-                inputContainer.appendChild(checkbox);
-                inputContainer.appendChild(label);
-                inputContainer.appendChild(document.createElement("br"));
-            }
-            var selectedObject = document.getElementById("objectSelect").value;
-            document.getElementById("selectedObject").value = selectedObject;
-            */
-            /*
-            var fieldset = document.createElement("fieldset");
-            var legend = document.createElement("legend");
-            legend.textContent = "選擇一個：";
-            fieldset.appendChild(legend);
-
-            for (var i = 0; i < inputFields.length; i++) {
-                var label = document.createElement("label");
-                var radioButton = document.createElement("input");
-            
-                label.textContent = inputFields[i].label;
-                radioButton.type = "radio";
-                radioButton.name = "radioGroup";
-                radioButton.id = inputFields[i].name;
-                radioButton.value = 1;
-
-                label.appendChild(radioButton);
-                fieldset.appendChild(label);
-                fieldset.appendChild(document.createElement("br"));
-            }
-        
-            inputContainer.appendChild(fieldset);
-        
-            var selectedObject = document.getElementById("objectSelect").value;
-            document.getElementById("selectedObject").value = selectedObject;*/
+            var selectedObject1 = document.getElementById("objectSelect").value;
+            document.getElementById("selectedObject").value = selectedObject1;
         }
+
         function info_helps() {
 
             var selectedObject = document.getElementById("objectSelect2").value;
@@ -387,24 +341,6 @@ input[type="text"] {
                     { label: "6. 其他", name: "input6" }
                 ];
             }
-            // 動態生成複選框
-            /*
-            for (var i = 0; i < inputFields.length; i++) {
-                var label = document.createElement("label");
-                label.textContent = inputFields[i].label;
-                var checkbox = document.createElement("input");
-                checkbox.type = "checkbox";
-                checkbox.name = inputFields[i].name;
-                //checkbox.value = inputFields[i].name;
-                checkbox.value = 1
-
-                inputContainer.appendChild(checkbox);
-                inputContainer.appendChild(label);
-                inputContainer.appendChild(document.createElement("br"));
-            }
-            var selectedObject = document.getElementById("objectSelect2").value;
-            document.getElementById("selectedObject").value = selectedObject;
-            */            
 
             // 動態生成輸入框
 
@@ -426,34 +362,6 @@ input[type="text"] {
             var selectedObject = document.getElementById("objectSelect2").value;
             document.getElementById("selectedObject2").value = selectedObject;
             
-            
-            /*
-            var fieldset = document.createElement("fieldset");
-            var legend = document.createElement("legend");
-            legend.textContent = "選擇一個：";
-            fieldset.appendChild(legend);
-
-            for (var i = 0; i < inputFields.length; i++) {
-                var label = document.createElement("label");
-                var radioButton = document.createElement("input");
-            
-                label.textContent = inputFields[i].label;
-                radioButton.type = "radio";
-                radioButton.name = "radioGroup";
-                //radioButton.name = inputFields[i].name;
-                radioButton.value = 1;
-                //radioButton.value = inputFields[i].name;
-
-                label.appendChild(radioButton);
-                fieldset.appendChild(label);
-                fieldset.appendChild(document.createElement("br"));
-            }
-        
-            inputContainer.appendChild(fieldset);
-        
-            var selectedObject = document.getElementById("objectSelect2").value;
-            document.getElementById("selectedObject").value = selectedObject;
-            */
         }
 
         window.onload = function() {

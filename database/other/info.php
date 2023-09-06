@@ -112,7 +112,7 @@
     }
     ?>
     <br>
-    <h3 id="chartTitle"><?php echo $name; ?>的輔導服務項目次數分佈圖(<?php echo $year;?>)</h3>
+    <h3 id="chartTitle"><?php echo $name; ?>的輔導服務項目時數分佈圖(<?php echo $year;?>)</h3>
     <select id="yearDropdown_1" onchange="loadChart1Data()">
         <?php echo $options; ?>
     </select>
@@ -126,7 +126,7 @@
             labels: [],  // 標籤
             datasets: [{
                 data: [],   // 資料
-                label: '輔導服務項目次數',
+                label: '輔導服務項目時數',
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1
@@ -140,11 +140,10 @@
             }
         }
     });
-
+    var selectedYear = document.getElementById('yearDropdown_1').value;
+    var selectedName = '<?php echo $name; ?>';
     function loadChart1Data() {
-        var selectedYear = document.getElementById('yearDropdown_1').value;
-        var selectedName = '<?php echo $name; ?>';
-        document.getElementById('chartTitle').textContent = `${selectedName}的輔導服務項目次數分佈圖(${selectedYear})`;
+        document.getElementById('chartTitle').textContent = `${selectedName}的輔導服務項目時數分佈圖(${selectedYear})`;
 
         fetch(`datasets_realhelps.php?name=${selectedName}&year=${selectedYear}`)
             .then(Response => Response.json())
@@ -158,9 +157,34 @@
             });
     }
     loadChart1Data();
+    document.getElementById('myChart').addEventListener('click', function(event) {
+        console.log('Click event triggered');
+        var activePoints = myChart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, false);
+
+        if (activePoints.length > 0) {
+            // 獲取被點擊的資料點索引
+            var clickedDatasetIndex = activePoints;
+            var clickedDatasetIndex2 = activePoints[0];
+            var clickedDataIndex = activePoints[0]._index;
+            var clickedLabel = myChart.data.labels[clickedDataIndex];
+            console.log('clickedDatasetIndex:', clickedDatasetIndex);
+            console.log('clickedDatasetIndex2:', clickedDatasetIndex2);
+            console.log('myChart:', myChart);
+            console.log('myChart.data:', myChart.data);
+            // 獲取資料值
+            var clickedValue = myChart.data.datasets[0].data[0];
+            console.log('clickedLabel:', clickedLabel);
+            console.log('clickedValue:', clickedValue);
+
+            // 做一些處理，只要資料值大於0就觸發跳轉到新的PHP頁面
+            if (clickedValue > 0) {
+                //window.location.href = 'your_php_page.php?name=' + encodeURIComponent(selectedName) + '&year=' + encodeURIComponent(selectedYear);
+            }
+        }
+    });
     </script>
     <br>
-    <h3 id="chartTitle2"><?php echo $name; ?>的行政服務項目次數分佈圖(<?php echo $info_year;?>)</h3>
+    <h3 id="chartTitle2"><?php echo $name; ?>的行政服務項目時數分佈圖(<?php echo $info_year;?>)</h3>
     <select id="yearDropdown_2" onchange="loadChart2Data()">
         <?php echo $info_options; ?>
     </select>
@@ -174,7 +198,7 @@
             labels: [],  // 標籤
             datasets: [{
                 data: [],   // 資料
-                label: '行政服務項目次數',
+                label: '行政服務項目時數',
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1
@@ -192,7 +216,7 @@
     function loadChart2Data() {
         var info_selectedYear = document.getElementById('yearDropdown_2').value;
         var info_selectedName = '<?php echo $name; ?>';
-        document.getElementById('chartTitle2').textContent = `${info_selectedName}的行政服務項目次數分佈圖(${info_selectedYear})`;
+        document.getElementById('chartTitle2').textContent = `${info_selectedName}的行政服務項目時數分佈圖(${info_selectedYear})`;
 
         fetch(`datasets_infohelps.php?name=${info_selectedName}&year=${info_selectedYear}`)
             .then(Response => Response.json())
@@ -208,6 +232,22 @@
 
     // 第一次載入預設的資料
     loadChart2Data();
+    document.getElementById('myChart2').addEventListener('click', function(event) {
+        var activePoints = myChart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, false);
+        if (activePoints.length > 0) {
+            // 獲取被點擊的資料點索引
+            var clickedDatasetIndex = activePoints[0]._datasetIndex;
+            var clickedDataIndex = activePoints[0]._index;
+
+            // 獲取資料值
+            var clickedValue = myChart.data.datasets[clickedDatasetIndex].data[clickedDataIndex];
+
+            // 做一些處理，只要資料值大於0就觸發跳轉到新的PHP頁面
+            if (clickedValue > 0) {
+                window.location.href = 'your_php_page.php?name=' + encodeURIComponent(info_selectedName) + '&year=' + encodeURIComponent(info_selectedYear);
+            }
+        }
+    });
     </script>
     <?php $link->close(); ?>
     <button onclick="window.location.href='../search/search.php'">返回查詢介面</button>
